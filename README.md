@@ -27,7 +27,7 @@
   tokenExp: Integer
 }
  ```
-
+---
  ### Resume (**Login required**)
  Query/Mutation | Required Fields | Description
 ---------------:|:---------------:|------------
