@@ -9,17 +9,17 @@ module.exports = {
         try {
 
             const check = await User.findOne({
-                username: args.userInput.username
+                email: args.userInput.email
             })
 
             if (check) {
-                throw new Error(`${args.userInput.username} already exists. Please try a different username.`)
+                throw new Error(`${args.userInput.email} already exists. Please try a different email.`)
             }
 
             args.userInput.password = bcrypt.hashSync(args.userInput.password, 12)
 
             const user = new User({
-                username: args.userInput.username,
+                email: args.userInput.email,
                 password: args.userInput.password
             })
 
@@ -35,9 +35,9 @@ module.exports = {
 
     },
 
-    login: async ({ username, password }) => {
+    login: async ({ email, password }) => {
 
-        const user = await User.findOne({ username })
+        const user = await User.findOne({ email })
 
         if (!user) {
 
@@ -49,7 +49,8 @@ module.exports = {
 
             const token = jwt.sign({
                 _id: user.id,
-                username: user.username
+                email: user.email,
+                role: user.role
             }, process.env.JWT_SECRET, { expiresIn: '2h' })
 
             return {
