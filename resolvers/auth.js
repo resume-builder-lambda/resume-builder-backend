@@ -20,7 +20,8 @@ module.exports = {
 
             const user = new User({
                 email: args.userInput.email,
-                password: args.userInput.password
+                password: args.userInput.password,
+                role: args.userInput.role
             })
 
             const res = await user.save()

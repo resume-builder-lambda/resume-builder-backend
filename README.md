@@ -1,6 +1,6 @@
 # Resume Builder Backend
 
-## Endpoints
+## Endpoint (https://lambda-resume-builder.herokuapp.com/)
 
 ### Auth
  Query/Mutation | Required Fields | Description

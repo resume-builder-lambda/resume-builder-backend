@@ -34,7 +34,7 @@ const resumeSchema = new Schema({
     },
     niche: {
         type: String,
-        required: true
+        required: false
     },
     creator: {
         type: Schema.Types.ObjectId,

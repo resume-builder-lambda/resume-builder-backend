@@ -38,7 +38,7 @@ module.exports = {
 
         try {
 
-            const createdResume = await event.save()
+            const createdResume = await resume.save()
 
             const creator = await User.findById(req.decoded._id)
 
