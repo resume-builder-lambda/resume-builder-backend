@@ -15,7 +15,7 @@
   password: String,
   role: String,
   resumes: [
-    { Resume Object }
+    { Resume object }
   ]
 }
  ```
@@ -40,7 +40,7 @@ query `resumes` | N/A | Returns a list of all resumes in the database (for now).
   title: String,
   description: String,
   niche: String,
-  creator: { User Object },
+  creator: { User object },
   createdAt: String,
   updatedAt: String
 }
