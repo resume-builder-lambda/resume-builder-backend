@@ -24,9 +24,19 @@ module.exports = {
                 role: args.userInput.role
             })
 
-            const res = await user.save()
+            await user.save()
 
-            return { ...res._doc, password: null }
+            const token = jwt.sign({
+                _id: user.id,
+                email: user.email,
+                role: user.role
+            }, process.env.JWT_SECRET, { expiresIn: '2h' })
+
+            return {
+                _id: user.id,
+                token,
+                tokenExp: 2
+            }
 
         } catch (err) {
 

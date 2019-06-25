@@ -5,7 +5,7 @@ module.exports = buildSchema(`
 type User {
     _id: ID!
     email: String!
-    password: String!
+    password: String
     role: String!
     resumes: [Resume!]
 }
@@ -47,7 +47,7 @@ type RootQuery {
 
 type RootMutation {
     createResume(resumeInput: ResumeInput): Resume
-    createUser(userInput: UserInput): User
+    createUser(userInput: UserInput): AuthData
     deleteResume(resumeId: ID!): Resume!
 }
 

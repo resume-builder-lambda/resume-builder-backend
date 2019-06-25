@@ -7,24 +7,12 @@
 ---------------:|:---------------:|------------
  mutation `createUser` | { email, role, password } | Checks for provided email within database. <br> If none exists, creates a new user. 
  query `login` | { email, password } | Checks credentials against users in database.
- #### Possible fields for `createUser` mutation:
- ```javascript
-{
-  _id: String,
-  email: String,
-  password: String,
-  role: String,
-  resumes: [
-    { Resume object }
-  ]
-}
- ```
- #### Possible fields for `login` query:
+ #### Possible fields for `login` query or `createUser` mutation:
  ```javascript
 {
   _id: String,
   token: String,
-  tokenExp: Integer
+  tokenExp: Integer(in hours)
 }
  ```
 ---
