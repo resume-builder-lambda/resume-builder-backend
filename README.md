@@ -1,6 +1,6 @@
-# Resume Builder Backend
+# CRP Backend
 
-## Endpoint (https://lambda-resume-builder.herokuapp.com/)
+## Endpoint (https://lambda-crp.herokuapp.com/)
 
 ### Auth
  Query/Mutation | Required Fields | Description
