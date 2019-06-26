@@ -1,4 +1,4 @@
-# CRP Backend
+# CRP Backend ![CRP Logo](https://cdn.discordapp.com/attachments/589093489170448432/593565886456004618/facebook_profile_image.png | width=150)
 
 ## Endpoint (https://lambda-crp.herokuapp.com/)
 
