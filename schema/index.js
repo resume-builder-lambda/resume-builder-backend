@@ -22,6 +22,8 @@ type Resume {
 
 type AuthData {
     _id: ID!
+    username:String!
+    email:String!
     token: String
     tokenExp: Int!
 }
