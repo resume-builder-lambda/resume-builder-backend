@@ -42,6 +42,23 @@ const resumeSchema = new Schema({
     }
 }, { timestamps: true })
 
+const googleSchema = new Schema({
+    username:{
+        type: String,
+        required:true
+    },
+    email: {
+        type: String,
+        required: true
+    },
+
+    accesstoken:{
+        type: String,
+        required:true
+    }
+
+})
+
 module.exports = {
     User: mongoose.model('User', userSchema),
     Resume: mongoose.model('Resume', resumeSchema)
