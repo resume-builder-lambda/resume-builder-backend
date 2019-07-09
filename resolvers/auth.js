@@ -65,7 +65,6 @@ module.exports = {
                 password,
                 role: 'Student',
                 google: {
-                    email,
                     name,
                     image,
                     token
@@ -73,6 +72,8 @@ module.exports = {
             })
 
             await user.save()
+
+            console.log(user)
 
             const JwtToken = jwt.sign({
                 _id: user.id,
