@@ -7,7 +7,6 @@ type User {
     email: String!
     password: String!
     role: String!
-    resumes: [Resume!]
     google: Google
 }
 
@@ -15,16 +14,6 @@ type Google {
     token: String!
     name: String!
     image: String!
-}
-
-type Resume {
-    _id: ID!
-    title: String!
-    description: String
-    niche: String
-    creator: User!
-    createdAt: String!
-    updatedAt: String!
 }
 
 type AuthData {
@@ -45,27 +34,16 @@ input UserInput {
     email: String!
     password: String
     role: String!
-    resumes: [ResumeInput!]
     google: [GoogleData!]
 }
 
-input ResumeInput {
-    title: String!
-    description: String
-    niche: String
-    creator: String!
-}
-
 type RootQuery {
-    resumes: [Resume!]!
     login(email: String!, password: String!): AuthData!
 }
 
 type RootMutation {
-    createResume(resumeInput: ResumeInput): Resume
     createUser(userInput: UserInput): AuthData
     createGoogleUser(googleData: GoogleData): AuthData
-    deleteResume(resumeId: ID!): Resume!
 }
 
 schema {
