@@ -82,11 +82,7 @@ module.exports = {
 
         try {
 
-            const check = await User.findOne({
-                google: {
-                    email
-                }
-            })
+            const check = await User.findOne({ email })
 
             if (check) {
 
