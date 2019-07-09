@@ -8,9 +8,7 @@ module.exports = {
 
         try {
 
-            const check = await User.findOne({
-                email: args.userInput.email
-            })
+            const check = await User.findOne({ email: args.userInput.email })
 
             if (check) {
                 throw new Error(`${args.userInput.email} already exists. Please try a different email.`)
@@ -35,6 +33,54 @@ module.exports = {
             return {
                 _id: user.id,
                 token,
+                tokenExp: 2
+            }
+
+        } catch (err) {
+
+            throw err
+
+        }
+
+    },
+
+    createGoogleUser: async ({ email, token, image, name, password }) => {
+
+        try {
+
+            const check = await User.findOne({ email })
+
+            if (check) {
+
+                throw new Error(`${email} already exists. Please try again or try logging in.`)
+
+            }
+
+            password = bcrypt.hashSync(password, 12)
+
+            const user = new User({
+                email,
+                password,
+                role: 'Student',
+                google: {
+                    email,
+                    name,
+                    image,
+                    token
+                }
+            })
+
+            await user.save()
+
+            const JwtToken = jwt.sign({
+                _id: user.id,
+                email: user.email,
+                role: user.role
+            }, process.env.JWT_SECRET, { expiresIn: '2h' })
+
+            return {
+                _id: user.id,
+                JwtToken,
                 tokenExp: 2
             }
 
@@ -77,50 +123,5 @@ module.exports = {
         }
 
     },
-
-    loginGoogle: async ({ email, token, image, name }) => {
-
-        try {
-
-            const check = await User.findOne({ email })
-
-            if (check) {
-
-                throw new Error(`${email} already exists. Please try again or try logging in.`)
-
-            }
-
-            const user = new User({
-                email,
-                role: 'Student',
-                google: {
-                    email,
-                    name,
-                    image,
-                    token
-                }
-            })
-
-            await user.save()
-
-            const JwtToken = jwt.sign({
-                _id: user.id,
-                email: user.email,
-                role: user.role
-            }, process.env.JWT_SECRET, { expiresIn: '2h' })
-
-            return {
-                _id: user.id,
-                JwtToken,
-                tokenExp: 2
-            }
-
-        } catch (err) {
-
-            throw err
-
-        }
-
-    }
 
 }

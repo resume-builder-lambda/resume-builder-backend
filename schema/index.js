@@ -5,9 +5,16 @@ module.exports = buildSchema(`
 type User {
     _id: ID!
     email: String!
-    password: String
+    password: String!
     role: String!
     resumes: [Resume!]
+    google: Google
+}
+
+type Google {
+    token: String!
+    name: String!
+    image: String!
 }
 
 type Resume {
@@ -27,10 +34,11 @@ type AuthData {
 }
 
 input GoogleData {
-    token: String
-    image: String
-    name: String
-    email: String
+    email: String!
+    password: String!
+    token: String!
+    image: String!
+    name: String!
 }
 
 input UserInput {
@@ -51,12 +59,13 @@ input ResumeInput {
 type RootQuery {
     resumes: [Resume!]!
     login(email: String!, password: String!): AuthData!
-    googleLogin(token: String, image: String, name: String, email: String): AuthData!
+    googleLogin(token: String, image: String, name: String, email: String!, ): AuthData!
 }
 
 type RootMutation {
     createResume(resumeInput: ResumeInput): Resume
     createUser(userInput: UserInput): AuthData
+    createGoogleUser(googleData: GoogleData): AuthData
     deleteResume(resumeId: ID!): Resume!
 }
 
