@@ -9,11 +9,29 @@ const userSchema = new Schema({
     },
     password: {
         type: String,
-        required: true
+        required: false
     },
     role: {
         type: String,
         required: true
+    },
+    google: {
+        token: {
+            type: String,
+            required: false
+        },
+        image: {
+            type: String,
+            required: false
+        },
+        name: {
+            type: String,
+            required: false
+        },
+        email: {
+            type: String,
+            required: false
+        }
     },
     resumes: [
         {
