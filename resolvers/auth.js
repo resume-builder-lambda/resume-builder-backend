@@ -103,7 +103,7 @@ module.exports = {
 
             await user.save()
 
-            const token = jwt.sign({
+            const JwtToken = jwt.sign({
                 _id: user.id,
                 email: user.email,
                 role: user.role
@@ -111,7 +111,7 @@ module.exports = {
 
             return {
                 _id: user.id,
-                token,
+                JwtToken,
                 tokenExp: 2
             }
 
