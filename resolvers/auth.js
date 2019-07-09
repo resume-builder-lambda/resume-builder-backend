@@ -46,7 +46,7 @@ module.exports = {
 
     createGoogleUser: async args => {
 
-        let { email, password, name, image, token } = args.googleData
+        let { email, password, name, image } = args.googleData
 
         try {
 
@@ -67,7 +67,7 @@ module.exports = {
                 google: {
                     name,
                     image,
-                    token
+                    token: args.googleData.token
                 }
             })
 
@@ -75,17 +75,17 @@ module.exports = {
 
             console.log('user', user)
 
-            const JwtToken = jwt.sign({
+            const token = jwt.sign({
                 _id: user.id,
                 email: user.email,
                 role: user.role
             }, process.env.JWT_SECRET, { expiresIn: '2h' })
 
-            console.log(JwtToken)
+            console.log(token)
 
             return {
+                token,
                 _id: user.id,
-                JwtToken,
                 tokenExp: 2
             }
 
