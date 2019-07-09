@@ -46,8 +46,6 @@ module.exports = {
 
     createGoogleUser: async ({ email, token, image, name, password }) => {
 
-        console.log(arguments)
-
         try {
 
             const check = await User.findOne({ email })
@@ -73,7 +71,7 @@ module.exports = {
 
             await user.save()
 
-            console.log(user)
+            console.log('user', user)
 
             const JwtToken = jwt.sign({
                 _id: user.id,
