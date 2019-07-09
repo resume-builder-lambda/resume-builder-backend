@@ -76,6 +76,55 @@ module.exports = {
 
         }
 
+    },
+
+    loginGoogle: async ({ email, token, image, name }) => {
+
+        try {
+
+            const check = await User.findOne({
+                google: {
+                    email
+                }
+            })
+
+            if (check) {
+
+                throw new Error(`${email} already exists. Please try again or try logging in.`)
+
+            }
+
+            const user = new User({
+                email,
+                role: 'Student',
+                google: {
+                    email,
+                    name,
+                    image,
+                    token
+                }
+            })
+
+            await user.save()
+
+            const token = jwt.sign({
+                _id: user.id,
+                email: user.email,
+                role: user.role
+            }, process.env.JWT_SECRET, { expiresIn: '2h' })
+
+            return {
+                _id: user.id,
+                token,
+                tokenExp: 2
+            }
+
+        } catch (err) {
+
+            throw err
+
+        }
+
     }
 
 }

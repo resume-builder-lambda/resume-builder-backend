@@ -26,11 +26,19 @@ type AuthData {
     tokenExp: Int!
 }
 
+input GoogleData {
+    token: String
+    image: String
+    name: String
+    email: String
+}
+
 input UserInput {
     email: String!
-    password: String!
+    password: String
     role: String!
     resumes: [ResumeInput!]
+    google: [GoogleData!]
 }
 
 input ResumeInput {
@@ -43,6 +51,7 @@ input ResumeInput {
 type RootQuery {
     resumes: [Resume!]!
     login(email: String!, password: String!): AuthData!
+    googleLogin(token: String, image: String, name: String, email: String): AuthData!
 }
 
 type RootMutation {

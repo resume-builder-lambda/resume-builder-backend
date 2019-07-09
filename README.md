@@ -1,6 +1,6 @@
-# Resume Builder Backend
+# ![CRP Logo](https://cdn.discordapp.com/attachments/589093489170448432/593606463767969798/facebook_profile_image.png "CRP Logo") CRP Backend 
 
-## Endpoint (https://lambda-resume-builder.herokuapp.com/)
+## Endpoint (https://lambda-crp.herokuapp.com/)
 
 ### Auth
  Query/Mutation | Required Fields | Description
@@ -33,3 +33,5 @@ query `resumes` | N/A | Returns a list of all resumes in the database (for now).
   updatedAt: String
 }
 ```
+
+<img src="https://cdn.discordapp.com/attachments/589093489170448432/593565886456004618/facebook_profile_image.png" />
