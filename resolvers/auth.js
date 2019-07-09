@@ -81,6 +81,8 @@ module.exports = {
                 role: user.role
             }, process.env.JWT_SECRET, { expiresIn: '2h' })
 
+            console.log(JwtToken)
+
             return {
                 _id: user.id,
                 JwtToken,
