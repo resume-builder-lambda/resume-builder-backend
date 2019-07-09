@@ -44,9 +44,9 @@ module.exports = {
 
     },
 
-    createGoogleUser: async ({ email, token, image, name, password }) => {
+    createGoogleUser: async args => {
 
-        console.log(email, token, image, name, password)
+        console.log(args)
 
         try {
 
