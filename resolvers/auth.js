@@ -46,7 +46,7 @@ module.exports = {
 
     createGoogleUser: async args => {
 
-        console.log(args)
+        let { email, password, name, image, token } = args.googleData
 
         try {
 
