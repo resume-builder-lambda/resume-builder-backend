@@ -46,6 +46,8 @@ module.exports = {
 
     createGoogleUser: async ({ email, token, image, name, password }) => {
 
+        console.log(arguments)
+
         try {
 
             const check = await User.findOne({ email })

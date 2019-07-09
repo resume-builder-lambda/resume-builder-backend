@@ -59,7 +59,6 @@ input ResumeInput {
 type RootQuery {
     resumes: [Resume!]!
     login(email: String!, password: String!): AuthData!
-    googleLogin(token: String, image: String, name: String, email: String!, ): AuthData!
 }
 
 type RootMutation {
