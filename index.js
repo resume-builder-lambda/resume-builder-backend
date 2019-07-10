@@ -10,8 +10,6 @@ const gqlResolver = require('./resolvers')
 
 const port = process.env.PORT || 5000
 
-const server = express()
-
 // Passport
 const passport = require('passport')
 const GithubStrategy = require('passport-github2').Strategy
@@ -36,6 +34,9 @@ passport.use(new GithubStrategy({
         })
     }
 ))
+
+const server = express()
+
 
 // Server
 server.use(require('./middleware').auth)
