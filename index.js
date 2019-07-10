@@ -42,15 +42,13 @@ server.use(require('./middleware').auth)
 
 server.use(express.json())
 
-server.use(cors())
-
 server.use('/graphql', cors(), gpqHttp({
     schema: gqlSchema,
     rootValue: gqlResolver,
     graphiql: true
 }))
 
-server.get('/auth/github', require('./middleware').aca, passport.authenticate('github', { scope: ['user'] }), (req, res) => {
+server.get('/auth/github', cors(), require('./middleware').aca, passport.authenticate('github', { scope: ['user'] }), (req, res) => {
     console.log('Something')
 })
 
