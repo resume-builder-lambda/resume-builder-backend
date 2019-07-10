@@ -38,13 +38,6 @@ passport.use(new GithubStrategy({
 // Server
 const server = express()
 
-server.all('*', function (req, res, next) {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET, OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Content-Type');
-    next();
-})
-
 server.use(require('./middleware').auth)
 
 server.use(express.json())
@@ -57,7 +50,7 @@ server.use('/graphql', gpqHttp({
     graphiql: true
 }))
 
-server.get('/auth/github', passport.authenticate('github', { scope: ['user'] }), (req, res) => {
+server.get('/auth/github', require('./middleware').aca, passport.authenticate('github', { scope: ['user'] }), (req, res) => {
     console.log('Something')
 })
 
