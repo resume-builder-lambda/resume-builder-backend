@@ -43,14 +43,16 @@ server.use(require('./middleware').auth)
 
 server.use(express.json())
 
-server.use('/', cors(), gpqHttp({
+server.use(cors())
+
+server.use('/', gpqHttp({
     schema: gqlSchema,
     rootValue: gqlResolver,
     graphiql: true
 }))
 
-server.get('/auth/github', passport.authenticate('github', {scope: ['user']}), (req, res) => {
-    console.log('Something')    
+server.get('/auth/github', passport.authenticate('github', { scope: ['user'] }), (req, res) => {
+    console.log('Something')
 })
 
 server.get('/auth/github/callback', passport.authenticate('github', { failureRedirect: '/' }), (req, res) => {
