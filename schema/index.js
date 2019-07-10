@@ -8,10 +8,24 @@ type User {
     password: String!
     role: String!
     google: Google
+    github: GitHub
+    linkedin: LinkedIn
 }
 
 type Google {
     token: String!
+    name: String!
+    image: String!
+}
+
+type LinkedIn {
+    token: String!
+    name: String!
+    image: String!
+}
+
+type GitHub {
+    username: String!
     name: String!
     image: String!
 }
@@ -30,11 +44,29 @@ input GoogleData {
     name: String!
 }
 
+input GitHubData {
+    email: String!
+    password: String!
+    username: String!
+    image: String!
+    name: String!
+}
+
+input LinkedInData {
+    email: String!
+    password: String!
+    token: String!
+    image: String!
+    name: String!
+}
+
 input UserInput {
     email: String!
-    password: String
+    password: String!
     role: String!
-    google: [GoogleData!]
+    google: GoogleData
+    linkedin: LinkedInData
+    github: GitHubData
 }
 
 type RootQuery {
@@ -42,8 +74,10 @@ type RootQuery {
 }
 
 type RootMutation {
-    createUser(userInput: UserInput): AuthData
-    createGoogleUser(googleData: GoogleData): AuthData
+    createUser(userInput: UserInput): AuthData!
+    createGoogleUser(googleData: GoogleData): AuthData!
+    createLinkedInUser(linkedInData: LinkedInData): AuthData!
+    createGitHubUser(gitHubData: GitHubData): AuthData!
 }
 
 schema {

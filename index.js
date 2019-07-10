@@ -12,6 +12,32 @@ const port = process.env.PORT || 5000
 
 const server = express()
 
+// Passport
+const passport = require('passport')
+const GithubStrategy = require('passport-github2').Strategy
+
+passport.serializeUser((user, done) => {
+    done(null, user)
+})
+
+passport.deserializeUser((obj, done) => {
+    done(null, obj)
+})
+
+passport.use(new GithubStrategy({
+    clientID: process.env.GITHUB_CLIENT_ID,
+    clientSecret: process.env.GITHUB_CLIENT_SECRET,
+    callbackURL: 'https://career-rp.com'
+},
+    function (accessToken, refreshToken, profile, done) {
+        process.nextTick(() => {
+            console.table(accessToken, refreshToken, profile)
+            done(null, profile)
+        })
+    }
+))
+
+// Server
 server.use(require('./middleware').auth)
 
 server.use(express.json())
@@ -21,6 +47,14 @@ server.use('/', cors(), gpqHttp({
     rootValue: gqlResolver,
     graphiql: true
 }))
+
+server.get('/auth/github', passport.authenticate('github', {scope: ['user']}), (req, res) => {
+    console.log('Something')    
+})
+
+server.get('/auth/github/callback', passport.authenticate('github', { failureRedirect: '/' }), (req, res) => {
+    console.log('Failed')
+})
 
 mongoose.connect(`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@gqltest-dbk60.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority`, { useNewUrlParser: true })
     .then(() => {
