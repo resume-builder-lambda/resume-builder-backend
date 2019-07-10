@@ -23,17 +23,17 @@ const userSchema = new Schema({
 
         token: {
             type: String,
-            required: true
+            required: false
         },
 
         image: {
             type: String,
-            required: true
+            required: false
         },
 
         name: {
             type: String,
-            required: true
+            required: false
         }
 
     },
@@ -42,17 +42,17 @@ const userSchema = new Schema({
 
         token: {
             type: String,
-            required: true
+            required: false
         },
 
         image: {
             type: String,
-            required: true
+            required: false
         },
 
         name: {
             type: String,
-            required: true
+            required: false
         }
 
     },
@@ -61,17 +61,17 @@ const userSchema = new Schema({
 
         username: {
             type: String,
-            required: true
+            required: false
         },
 
         image: {
             type: String,
-            required: true
+            required: false
         },
 
         name: {
             type: String,
-            required: true
+            required: false
         }
 
     }
