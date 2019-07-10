@@ -51,7 +51,7 @@ server.use(express.json())
 
 server.use(cors())
 
-server.use('/', gpqHttp({
+server.use('/graphql', gpqHttp({
     schema: gqlSchema,
     rootValue: gqlResolver,
     graphiql: true
