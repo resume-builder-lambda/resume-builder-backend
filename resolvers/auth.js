@@ -99,7 +99,7 @@ module.exports = {
 
     createGitHubUser: async args => {
 
-        let { email, password, name, image } = args.githubData
+        let { email, password, name, image } = args.gitHubData
 
         try {
 
