@@ -35,10 +35,10 @@ module.exports = {
     },
 
     aca: (req, res, next) => {
-        req.header['Access-Control-Allow-Origin'] = '*';
+        req.header['Access-Control-Allow-Origin'] = '*'
         req.header['Access-Control-Allow-Methods'] = 'GET, OPTIONS'
         req.header['Access-Control-Allow-Headers'] = 'Content-Type'
-        next();
+        next()
     }
 
 }

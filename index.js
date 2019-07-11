@@ -39,6 +39,7 @@ passport.use(new GithubStrategy({
 const server = express()
 
 server.use(require('./middleware').auth)
+server.use(cors())
 
 server.use(express.json())
 
@@ -48,7 +49,7 @@ server.use('/graphql', cors(), gpqHttp({
     graphiql: true
 }))
 
-server.get('/auth/github', cors(), require('./middleware').aca, passport.authenticate('github', { scope: ['user'] }), (req, res) => {
+server.get('/auth/github', require('./middleware').aca, passport.authenticate('github', { scope: ['user'] }), (req, res) => {
     console.log('Something')
 })
 
