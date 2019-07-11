@@ -97,6 +97,59 @@ module.exports = {
 
     },
 
+    createGitHubUser: async args => {
+
+        let { email, password, name, image } = args.githubData
+
+        try {
+
+            const check = await User.findOne({ email })
+
+            if (check) {
+
+                throw new Error(`${email} already exists. Please try again or try logging in.`)
+
+            }
+
+            password = bcrypt.hashSync(password, 12)
+
+            const user = new User({
+                email,
+                password,
+                role: 'Student',
+                github: {
+                    name,
+                    image,
+                    token: args.gitHubData.token
+                }
+            })
+
+            await user.save()
+
+            console.log('user', user)
+
+            const token = jwt.sign({
+                _id: user.id,
+                email: user.email,
+                role: user.role
+            }, process.env.JWT_SECRET, { expiresIn: '2h' })
+
+            console.log(token)
+
+            return {
+                token,
+                _id: user.id,
+                tokenExp: 2
+            }
+
+        } catch (err) {
+
+            throw err
+
+        }
+
+    },
+
     login: async ({ email, password }) => {
 
         const user = await User.findOne({ email })
