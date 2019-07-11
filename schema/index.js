@@ -50,6 +50,7 @@ input GitHubData {
     username: String!
     image: String!
     name: String!
+    token: String!
 }
 
 input LinkedInData {
