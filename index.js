@@ -3,6 +3,7 @@ require('dotenv').config()
 const express = require('express')
 const gpqHttp = require('express-graphql')
 const mongoose = require('mongoose')
+
 const cors = require('cors')
 
 const gqlSchema = require('./schema')
@@ -49,7 +50,7 @@ server.use('/graphql', cors(), gpqHttp({
     graphiql: true
 }))
 
-server.get('/auth/github', require('./middleware').aca, passport.authenticate('github', { scope: ['user'] }), (req, res) => {
+server.get('/auth/github', passport.authenticate('github', { scope: ['user:email'] }), (req, res) => {
     console.log('Something')
 })
 

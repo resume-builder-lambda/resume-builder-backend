@@ -35,9 +35,10 @@ module.exports = {
     },
 
     aca: (req, res, next) => {
-        req.header['Access-Control-Allow-Origin'] = '*'
-        req.header['Access-Control-Allow-Methods'] = 'GET, OPTIONS'
-        req.header['Access-Control-Allow-Headers'] = 'Content-Type'
+        req.headers['Access-Control-Allow-Origin'] = '*'
+        req.headers['Access-Control-Allow-Methods'] = 'GET, OPTIONS'
+        req.headers['Access-Control-Allow-Headers'] = 'Content-Type'
+        req.headers.accept = 'application/vnd.github.machine-man-preview+json'
         next()
     }
 
