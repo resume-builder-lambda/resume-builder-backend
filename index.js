@@ -60,16 +60,13 @@ server.get('/auth/github/callback', passport.authenticate('github', { failureRed
     console.log('Failed')
 })
 
-server.post('/auth/linkedin', cors(), (req, res) => {
+server.post('/auth/linkedin', (req, res) => {
     const { code } = req.headers
 
     console.log(code)
 
     fetch(`https://www.linkedin.com/oauth/v2/accessToken?grant_type=authorization_code&code=${code}&redirect_uri=${process.env.REDIRECT_REGISTER_URI}&client_id=${process.env.LINKEDIN_CLIENT_ID}&client_secret=${process.env.LINKEDIN_CLIENT_SECRET}`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        }
+        method: 'POST'
     })
         .then(res => res.status(200).json(res))
         .catch(err => res.status(400).json(err))
