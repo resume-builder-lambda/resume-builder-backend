@@ -47,7 +47,8 @@ passport.use(new LinkedinStrategy({
         process.nextTick(() => {
             done(null, profile)
         })
-    }))
+    }
+))
 
 // Server
 const server = express()
@@ -63,13 +64,17 @@ server.use('/graphql', cors(), gpqHttp({
     graphiql: true
 }))
 
-server.get('/auth/github', passport.authenticate('github', { scope: ['user'] }), (req, res) => console.log('Something'))
+server.get('/auth/github', passport.authenticate('github', { scope: ['user'] }), (req, res) => {
+    console.log('Something')
+})
 
 server.get('/auth/github/callback', passport.authenticate('github', { failureRedirect: '/' }), (req, res) => {
     console.log('Failed')
 })
 
-server.get('/auth/linkedin', passport.authenticate('linkedin'), (req, res) => console.log('Something'))
+server.get('/auth/linkedin', passport.authenticate('linkedin'), (req, res) => {
+    console.log('Something')
+})
 
 server.get('/auth/linkedin/callback', passport.authenticate('github', { failureRedirect: '/' }), (req, res) => {
     console.log('Failed')
