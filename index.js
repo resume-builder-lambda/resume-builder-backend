@@ -14,7 +14,8 @@ const port = process.env.PORT || 5000
 // Passport
 const passport = require('passport')
 const GithubStrategy = require('passport-github2').Strategy
-const LinkedinStrategy = require('passport-linkedin-oauth2').Strategy
+
+const fetch = require('node-fetch')
 
 passport.serializeUser((user, done) => {
     done(null, user)
@@ -32,19 +33,6 @@ passport.use(new GithubStrategy({
     function (accessToken, refreshToken, profile, done) {
         process.nextTick(() => {
             console.table(accessToken, refreshToken, profile)
-            done(null, profile)
-        })
-    }
-))
-
-passport.use(new LinkedinStrategy({
-    clientID: process.env.LINKEDIN_CLIENT_ID,
-    clientSecret: process.env.LINKEDIN_CLIENT_SECRET,
-    callbackURL: 'https://career-rp.com/register',
-    scope: ['r_liteprofile', 'r_emailaddress']
-},
-    function (accessToken, refreshToken, profile, done) {
-        process.nextTick(() => {
             done(null, profile)
         })
     }
@@ -72,12 +60,17 @@ server.get('/auth/github/callback', passport.authenticate('github', { failureRed
     console.log('Failed')
 })
 
-server.get('/auth/linkedin', passport.authenticate('linkedin'), (req, res) => {
-    console.log('Something')
-})
+server.post('/auth/linkedin', (req, res) => {
+    const { code } = req.headers
 
-server.get('/auth/linkedin/callback', passport.authenticate('linkedin', { failureRedirect: '/' }), (req, res) => {
-    console.log('Failed')
+    fetch(`https://www.linkedin.com/oauth/v2/accessToken?Content-Type=x-www-form-urlencoded&grant_type=authorization_code&code=${code}&redirect_uri=${process.env.REDIRECT_REGISTER_URI}&client_id=${process.env.LINKEDIN_CLIENT_ID}&client_secret=${process.env.LINKEDIN_CLIENT_SECRET}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+        .then(res => res.status(200).json(res))
+        .catch(err => res.status(400).json(err))
 })
 
 mongoose.connect(`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@gqltest-dbk60.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority`, { useNewUrlParser: true })
