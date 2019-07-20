@@ -14,6 +14,7 @@ const port = process.env.PORT || 5000
 // Passport
 const passport = require('passport')
 const GithubStrategy = require('passport-github2').Strategy
+const LinkedinStrategy = require('passport-linkedin-oauth2').Strategy
 
 passport.serializeUser((user, done) => {
     done(null, user)
@@ -36,6 +37,18 @@ passport.use(new GithubStrategy({
     }
 ))
 
+passport.use(new LinkedinStrategy({
+    clientID: process.env.LINKEDIN_CLIENT_ID,
+    clientSecret: process.env.LINKEDIN_CLIENT_SECRET,
+    callbackURL: 'https://career-rp.com',
+    scope: ['r_liteprofile', 'r_emailaddress']
+},
+    function (accessToken, refreshToken, profile, done) {
+        process.nextTick(() => {
+            done(null, profile)
+        })
+    }))
+
 // Server
 const server = express()
 
@@ -50,11 +63,15 @@ server.use('/graphql', cors(), gpqHttp({
     graphiql: true
 }))
 
-server.get('/auth/github', passport.authenticate('github', { scope: ['user'] }), (req, res) => {
-    console.log('Something')
-})
+server.get('/auth/github', passport.authenticate('github', { scope: ['user'] }), (req, res) => console.log('Something'))
 
 server.get('/auth/github/callback', passport.authenticate('github', { failureRedirect: '/' }), (req, res) => {
+    console.log('Failed')
+})
+
+server.get('/auth/linkedin', passport.authenticate('linkedin'), (req, res) => console.log('Something'))
+
+server.get('/auth/linkedin/callback', passport.authenticate('github', { failureRedirect: '/' }), (req, res) => {
     console.log('Failed')
 })
 
