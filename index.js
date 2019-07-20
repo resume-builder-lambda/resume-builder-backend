@@ -60,7 +60,7 @@ server.get('/auth/github/callback', passport.authenticate('github', { failureRed
     console.log('Failed')
 })
 
-server.post('/auth/linkedin', (req, res) => {
+server.post('/auth/linkedin', cors(), (req, res) => {
     const { code } = req.headers
 
     console.log(code)
@@ -70,7 +70,7 @@ server.post('/auth/linkedin', (req, res) => {
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
             'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'GET, OPTIONS',
+            'Access-Control-Allow-Methods': 'POST, OPTIONS',
             'Access-Control-Allow-Headers': 'Content-Type'
         }
     })
