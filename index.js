@@ -71,7 +71,8 @@ server.post('/auth/linkedin', cors(), (req, res) => {
             'Content-Type': 'application/x-www-form-urlencoded',
             'Access-Control-Allow-Origin': '*',
             'Access-Control-Allow-Methods': 'POST, OPTIONS',
-            'Access-Control-Allow-Headers': 'Content-Type'
+            'Access-Control-Allow-Headers': 'Content-Type',
+            'Access-Control-Request-Method': 'POST'
         }
     })
         .then(res => res.status(200).json(res))
