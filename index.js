@@ -40,7 +40,7 @@ passport.use(new GithubStrategy({
 passport.use(new LinkedinStrategy({
     clientID: process.env.LINKEDIN_CLIENT_ID,
     clientSecret: process.env.LINKEDIN_CLIENT_SECRET,
-    callbackURL: 'https://career-rp.com',
+    callbackURL: 'https://career-rp.com/register',
     scope: ['r_liteprofile', 'r_emailaddress']
 },
     function (accessToken, refreshToken, profile, done) {
