@@ -76,7 +76,7 @@ server.get('/auth/linkedin', passport.authenticate('linkedin'), (req, res) => {
     console.log('Something')
 })
 
-server.get('/auth/linkedin/callback', passport.authenticate('github', { failureRedirect: '/' }), (req, res) => {
+server.get('/auth/linkedin/callback', passport.authenticate('linkedin', { failureRedirect: '/' }), (req, res) => {
     console.log('Failed')
 })
 
