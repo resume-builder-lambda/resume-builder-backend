@@ -39,10 +39,10 @@ router.post('/linkedin', (req, res, next) => {
             requestProfile(response.body.access_token)
                 .then(repsonce => {
                     console.log('rp', repsonce.body)
-                    res.render('callback', { profile: repsonce.body })
+                    res.status(200).json({ profile: repsonce.body })
                 })
         })
-        .catch(err => res.render('bitches', { bitches: true, err }))
+        .catch(err => res.status(500).json(err))
 
 })
 
