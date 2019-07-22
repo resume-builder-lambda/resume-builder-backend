@@ -40,7 +40,7 @@ router.post('/linkedin', (req, res, next) => {
                 .then(repsonce => {
                     console.log('rp', repsonce.body)
                     repsonce.json({ profile: repsonce.body })
-                        .then(sconce => res.status(200).json(body))
+                        .then(sconce => res.status(200).json(sconce))
                 })
                 .catch(err => res.status(500).json(err))
         })
