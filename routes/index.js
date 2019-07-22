@@ -43,7 +43,7 @@ router.post('/linkedin', (req, res, next) => {
                     res.render('callback', { profile: res.body })
                 })
         })
-        .catch(err => res.status(120).json(err))
+        .catch(err => res.status(501).json(err))
 
 })
 
