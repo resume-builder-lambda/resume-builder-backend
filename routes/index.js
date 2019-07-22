@@ -32,8 +32,6 @@ passport.use(new GithubStrategy({
 
 router.post('/linkedin', (req, res, next) => {
 
-    console.log('code', req.headers.code)
-
     requestAccessToken(req.headers.code)
         .then(res => {
             console.log('rat', res.body.accessToken)
@@ -43,7 +41,7 @@ router.post('/linkedin', (req, res, next) => {
                     res.render('callback', { profile: res.body })
                 })
         })
-        .catch(err => res.status(501).json(err))
+        .catch(err => res.status(500).json(err))
 
 })
 
