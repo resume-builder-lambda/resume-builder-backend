@@ -30,7 +30,7 @@ passport.use(new GithubStrategy({
     }
 ))
 
-router.get('/linkedin', (req, res, next) => {
+router.post('/linkedin', (req, res, next) => {
 
     console.log('code', req.headers.code)
 
