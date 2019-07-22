@@ -39,8 +39,7 @@ router.post('/linkedin', (req, res, next) => {
             requestProfile(response.body.access_token)
                 .then(repsonce => {
                     console.log('rp', repsonce.body)
-                    repsonce.json({ profile: repsonce.body })
-                        .then(sconce => res.status(200).json(sconce))
+                    res.status(200).send({ profile: repsonce.body })
                 })
                 .catch(err => res.status(500).json(err))
         })
