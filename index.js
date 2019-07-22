@@ -12,6 +12,8 @@ const gqlResolver = require('./resolvers')
 const port = process.env.PORT || 5000
 
 const auth = require('./routes')
+const path = require('path')
+
 
 // Server
 const server = express()
@@ -19,6 +21,8 @@ const server = express()
 server.use(require('./middleware').auth)
 server.use(cors())
 
+server.set('views', path.join(__dirname, 'views'))
+server.set('view engine', 'ejs')
 server.use(express.json())
 
 server.use('/graphql', cors(), gpqHttp({
