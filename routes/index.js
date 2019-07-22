@@ -1,5 +1,8 @@
 const router = require('express').Router()
 const request = require('superagent')
+const bodyParser = require('body-parser')
+
+router.use(bodyParser.urlencoded({ extended: false }))
 
 // Passport
 const passport = require('passport')
