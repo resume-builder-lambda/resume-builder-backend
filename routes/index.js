@@ -33,13 +33,13 @@ passport.use(new GithubStrategy({
 router.post('/linkedin', (req, res, next) => {
 
     requestAccessToken(req.headers.code)
-        .then(res => {
+        .then(response => {
             console.log('rat', res.body)
             console.log('rat', res.body.access_token)
-            requestProfile(res.body.access_token)
-                .then(res => {
-                    console.log('rp', res.body)
-                    res.render('callback', { profile: res.body })
+            requestProfile(response.body.access_token)
+                .then(repsonce => {
+                    console.log('rp', repsonce.body)
+                    res.render('callback', { profile: repsonce.body })
                 })
                 .catch(err => res.status(500).json({ bitches: true, err }))
         })
