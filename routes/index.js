@@ -34,7 +34,7 @@ router.post('/linkedin', (req, res, next) => {
 
     requestAccessToken(req.headers.code)
         .then(res => {
-            console.log('rat', res.body.accessToken)
+            console.log('rat', res.body)
             requestProfile(res.body.access_token)
                 .then(res => {
                     console.log('rp', res.body)
