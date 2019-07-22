@@ -31,12 +31,14 @@ passport.use(new GithubStrategy({
 
 router.get('/linkedin', (req, res, next) => {
 
+    console.log('code', req.headers.code)
+
     requestAccessToken(req.headers.code)
         .then(res => {
             requestProfile(res.body.access_token)
                 .then(res => {
                     console.log(res.body)
-                    res.prependListener('callback', { profile: res.body })
+                    res.render('callback', { profile: res.body })
                 })
         })
         .catch(err => res.status(500).json(err))
