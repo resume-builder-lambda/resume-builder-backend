@@ -11,32 +11,7 @@ const gqlResolver = require('./resolvers')
 
 const port = process.env.PORT || 5000
 
-// Passport
-const passport = require('passport')
-const GithubStrategy = require('passport-github2').Strategy
-
-const fetch = require('node-fetch')
-
-passport.serializeUser((user, done) => {
-    done(null, user)
-})
-
-passport.deserializeUser((obj, done) => {
-    done(null, obj)
-})
-
-passport.use(new GithubStrategy({
-    clientID: process.env.GITHUB_CLIENT_ID,
-    clientSecret: process.env.GITHUB_CLIENT_SECRET,
-    callbackURL: 'https://career-rp.com'
-},
-    function (accessToken, refreshToken, profile, done) {
-        process.nextTick(() => {
-            console.table(accessToken, refreshToken, profile)
-            done(null, profile)
-        })
-    }
-))
+const auth = require('./routes')
 
 // Server
 const server = express()
@@ -52,25 +27,7 @@ server.use('/graphql', cors(), gpqHttp({
     graphiql: true
 }))
 
-server.get('/auth/github', passport.authenticate('github', { scope: ['user'] }), (req, res) => {
-    console.log('Something')
-})
-
-server.get('/auth/github/callback', passport.authenticate('github', { failureRedirect: '/' }), (req, res) => {
-    console.log('Failed')
-})
-
-server.post('/auth/linkedin', (req, res) => {
-    const { code } = req.headers
-
-    console.log(code)
-
-    fetch(`https://www.linkedin.com/oauth/v2/accessToken?grant_type=authorization_code&code=${code}&redirect_uri=${process.env.REDIRECT_REGISTER_URI}&client_id=${process.env.LINKEDIN_CLIENT_ID}&client_secret=${process.env.LINKEDIN_CLIENT_SECRET}`, {
-        method: 'POST'
-    })
-        .then(res => res.status(200).json(res))
-        .catch(err => res.status(400).json(err))
-})
+server.use('/auth', auth)
 
 mongoose.connect(`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@gqltest-dbk60.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority`, { useNewUrlParser: true })
     .then(() => {
