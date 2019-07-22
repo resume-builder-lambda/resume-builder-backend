@@ -7,8 +7,9 @@ type User {
     email: String!
     password: String!
     role: String!
-    resumes: [Resume!]
     google: Google
+    github: GitHub
+    linkedin: LinkedIn
 }
 
 type Google {
@@ -17,14 +18,16 @@ type Google {
     image: String!
 }
 
-type Resume {
-    _id: ID!
-    title: String!
-    description: String
-    niche: String
-    creator: User!
-    createdAt: String!
-    updatedAt: String!
+type LinkedIn {
+    token: String!
+    name: String!
+    image: String!
+}
+
+type GitHub {
+    username: String!
+    name: String!
+    image: String!
 }
 
 type AuthData {
@@ -41,31 +44,41 @@ input GoogleData {
     name: String!
 }
 
-input UserInput {
+input GitHubData {
     email: String!
-    password: String
-    role: String!
-    resumes: [ResumeInput!]
-    google: [GoogleData!]
+    password: String!
+    username: String!
+    image: String!
+    name: String!
+    token: String!
 }
 
-input ResumeInput {
-    title: String!
-    description: String
-    niche: String
-    creator: String!
+input LinkedInData {
+    email: String!
+    password: String!
+    token: String!
+    image: String!
+    name: String!
+}
+
+input UserInput {
+    email: String!
+    password: String!
+    role: String!
+    google: GoogleData
+    linkedin: LinkedInData
+    github: GitHubData
 }
 
 type RootQuery {
-    resumes: [Resume!]!
     login(email: String!, password: String!): AuthData!
 }
 
 type RootMutation {
-    createResume(resumeInput: ResumeInput): Resume
-    createUser(userInput: UserInput): AuthData
-    createGoogleUser(googleData: GoogleData): AuthData
-    deleteResume(resumeId: ID!): Resume!
+    createUser(userInput: UserInput): AuthData!
+    createGoogleUser(googleData: GoogleData): AuthData!
+    createLinkedInUser(linkedInData: LinkedInData): AuthData!
+    createGitHubUser(gitHubData: GitHubData): AuthData!
 }
 
 schema {
