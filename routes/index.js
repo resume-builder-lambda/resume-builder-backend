@@ -36,13 +36,14 @@ router.post('/linkedin', (req, res, next) => {
 
     requestAccessToken(req.headers.code)
         .then(res => {
+            console.log('rat', res.body.accessToken)
             requestProfile(res.body.access_token)
                 .then(res => {
-                    console.log(res.body)
+                    console.log('rp', res.body)
                     res.render('callback', { profile: res.body })
                 })
         })
-        .catch(err => res.status(500).json(err))
+        .catch(err => res.status(120).json(err))
 
 })
 
