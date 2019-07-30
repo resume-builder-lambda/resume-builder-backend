@@ -72,6 +72,7 @@ input UserInput {
 
 type RootQuery {
     login(email: String!, password: String!): AuthData!
+    user: User!
 }
 
 type RootMutation {
