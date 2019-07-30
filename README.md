@@ -1,4 +1,4 @@
-# ![CRP Logo](https://cdn.discordapp.com/attachments/589093489170448432/593606463767969798/facebook_profile_image.png "CRP Logo") CRP Backend 
+# ![CRP Logo](https://avatars0.githubusercontent.com/u/49796992?s=88&v=4 "CRP Logo") CRP Backend 
 
 ## Endpoint (https://lambda-crp.herokuapp.com/)
 
@@ -33,5 +33,3 @@ query `resumes` | N/A | Returns a list of all resumes in the database (for now).
   updatedAt: String
 }
 ```
-
-<img src="https://cdn.discordapp.com/attachments/589093489170448432/593565886456004618/facebook_profile_image.png" />
