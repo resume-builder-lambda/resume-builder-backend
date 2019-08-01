@@ -1,12 +1,12 @@
-# ![CRP Logo](https://cdn.discordapp.com/attachments/589093489170448432/593606463767969798/facebook_profile_image.png "CRP Logo") CRP Backend 
+# ![CRP Logo](https://avatars0.githubusercontent.com/u/49796992?s=88&v=4 "CRP Logo") CRP Backend 
 
-## Endpoint (https://lambda-crp.herokuapp.com/)
+## Endpoint (https://lambda-crp.herokuapp.com/graphql)
 
 ### Auth
  Query/Mutation | Required Fields | Description
 ---------------:|:---------------:|------------
- mutation `createUser` | { email, role, password } | Checks for provided email within database. <br> If none exists, creates a new user. 
- query `login` | { email, password } | Checks credentials against users in database.
+ mutation `createUser` | userInput: { email, role, password } | Checks for provided email within database. <br> If none exists, creates a new user. 
+ query `login` | ( email, password ) | Checks credentials against users in database.
  #### Possible fields for `login` query or `createUser` mutation:
  ```javascript
 {
@@ -16,22 +16,50 @@
 }
  ```
 ---
- ### Resume (**Login required**)
+ ### Jobs (**Login required**)
  Query/Mutation | Required Fields | Description
 ---------------:|:---------------:|------------
-mutation `createResume` | { title, creator } | Creates a new resume.
-query `resumes` | N/A | Returns a list of all resumes in the database (for now).
-#### Possible fields for `createResume` mutation *and* `resumes` query:
+mutation `addJob` | jobInput(see below) | Creates a new job.
+query `jobs` | N/A | Returns a list of all jobs corresponding to logged in user (for now).
+#### Required fields for `addJob` mutation:
 ```javascript
 {
-  _id: String
-  title: String,
-  description: String,
-  niche: String,
-  creator: { User object },
-  createdAt: String,
-  updatedAt: String
+  company: String,
+  position: String,
+  location: String,
+  applied: true,
+  interview: false,
+  offer: false
 }
 ```
-
-<img src="https://cdn.discordapp.com/attachments/589093489170448432/593565886456004618/facebook_profile_image.png" />
+#### Possible returned fields for `addJob` mutation and `jobs` query:
+```javascript
+{
+  user: String,
+  company: String,
+  position: String,
+  location: String,
+  applied: true,
+  interview: false,
+  offer: false
+}
+```
+---
+### Users
+ Query/Mutation | Required Fields | Description
+---------------:|:---------------:|------------
+query `users` | N/A | Returns the user that is logged in.
+#### Possible fields returned for `users` query:
+```javascript
+{
+  _id: String,
+  email: String,
+  password: String,
+  role: String,
+  google: {
+    token: String,
+    name: String,
+    image: String
+  }
+}
+```

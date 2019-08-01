@@ -38,46 +38,48 @@ const userSchema = new Schema({
 
     },
 
-    linkedIn: {
+})
 
-        token: {
-            type: String,
-            required: false
-        },
+const jobSchema = new Schema({
 
-        image: {
-            type: String,
-            required: false
-        },
-
-        name: {
-            type: String,
-            required: false
-        }
-
+    user: {
+        type: String,
+        required: true
     },
 
-    github: {
+    company: {
+        type: String,
+        required: true
+    },
 
-        username: {
-            type: String,
-            required: false
-        },
+    position: {
+        type: String,
+        required: true
+    },
 
-        image: {
-            type: String,
-            required: false
-        },
+    location: {
+        type: String,
+        required: true
+    },
 
-        name: {
-            type: String,
-            required: false
-        }
+    applied: {
+        type: Boolean,
+        required: true
+    },
 
+    interview: {
+        type: Boolean,
+        required: true
+    },
+
+    offer: {
+        type: Boolean,
+        required: true
     }
 
 })
 
 module.exports = {
-    User: mongoose.model('User', userSchema)
+    User: mongoose.model('User', userSchema),
+    Jobs: mongoose.model('Jobs', jobSchema)
 }

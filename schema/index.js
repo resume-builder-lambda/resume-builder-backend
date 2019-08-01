@@ -8,24 +8,10 @@ type User {
     password: String!
     role: String!
     google: Google
-    github: GitHub
-    linkedin: LinkedIn
 }
 
 type Google {
     token: String!
-    name: String!
-    image: String!
-}
-
-type LinkedIn {
-    token: String!
-    name: String!
-    image: String!
-}
-
-type GitHub {
-    username: String!
     name: String!
     image: String!
 }
@@ -36,24 +22,21 @@ type AuthData {
     tokenExp: Int!
 }
 
+type Job {
+    company: String!
+    position: String!
+    location: String!
+    applied: Boolean!
+    interview: Boolean!
+    offer: Boolean!
+}
+
+type Jobs {
+    user: String!
+    jobs: [Job!]
+}
+
 input GoogleData {
-    email: String!
-    password: String!
-    token: String!
-    image: String!
-    name: String!
-}
-
-input GitHubData {
-    email: String!
-    password: String!
-    username: String!
-    image: String!
-    name: String!
-    token: String!
-}
-
-input LinkedInData {
     email: String!
     password: String!
     token: String!
@@ -66,20 +49,27 @@ input UserInput {
     password: String!
     role: String!
     google: GoogleData
-    linkedin: LinkedInData
-    github: GitHubData
+}
+
+input JobInput {
+    company: String!
+    position: String!
+    location: String!
+    applied: Boolean!
+    interview: Boolean!
+    offer: Boolean!
 }
 
 type RootQuery {
     login(email: String!, password: String!): AuthData!
     user: User!
+    jobs: [Job!]
 }
 
 type RootMutation {
     createUser(userInput: UserInput): AuthData!
     createGoogleUser(googleData: GoogleData): AuthData!
-    createLinkedInUser(linkedInData: LinkedInData): AuthData!
-    createGitHubUser(gitHubData: GitHubData): AuthData!
+    addJob(jobInput: JobInput): Job!
 }
 
 schema {
