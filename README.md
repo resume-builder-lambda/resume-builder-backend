@@ -46,9 +46,9 @@ query `jobs` | N/A | Returns a list of all jobs corresponding to logged in user 
   company: String,
   position: String,
   location: String,
-  applied: true,
-  interview: false,
-  offer: false
+  applied: Boolean,
+  interview: Boolean,
+  offer: Boolean
 }
 ```
 #### Possible returned fields for `addJob` mutation and `jobs` query:
@@ -58,9 +58,9 @@ query `jobs` | N/A | Returns a list of all jobs corresponding to logged in user 
   company: String,
   position: String,
   location: String,
-  applied: true,
-  interview: false,
-  offer: false
+  applied: Boolean,
+  interview: Boolean,
+  offer: Boolean
 }
 ```
 ---
