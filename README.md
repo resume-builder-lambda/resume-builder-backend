@@ -15,8 +15,27 @@
   tokenExp: Integer(in hours)
 }
  ```
+ ---
+### Users (**Token required**)
+ Query/Mutation | Required Fields | Description
+---------------:|:---------------:|------------
+query `users` | N/A | Returns the user that is logged in.
+#### Possible fields returned for `users` query:
+```javascript
+{
+  _id: String,
+  email: String,
+  password: String,
+  role: String,
+  google: {
+    token: String,
+    name: String,
+    image: String
+  }
+}
+```
 ---
- ### Jobs (**Login required**)
+ ### Jobs (**Token required**)
  Query/Mutation | Required Fields | Description
 ---------------:|:---------------:|------------
 mutation `addJob` | jobInput(see below) | Creates a new job.
@@ -45,21 +64,3 @@ query `jobs` | N/A | Returns a list of all jobs corresponding to logged in user 
 }
 ```
 ---
-### Users
- Query/Mutation | Required Fields | Description
----------------:|:---------------:|------------
-query `users` | N/A | Returns the user that is logged in.
-#### Possible fields returned for `users` query:
-```javascript
-{
-  _id: String,
-  email: String,
-  password: String,
-  role: String,
-  google: {
-    token: String,
-    name: String,
-    image: String
-  }
-}
-```
