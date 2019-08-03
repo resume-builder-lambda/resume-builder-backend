@@ -61,6 +61,36 @@ module.exports = {
 
     },
 
+    delJob: async (args, req) => {
+
+        const { email } = req.decoded
+
+        const { _id } = args
+
+        try {
+
+            const check = await Jobs.findOne({ _id })
+
+            if (check.user === email) {
+
+                await Jobs.findByIdAndDelete({ _id })
+
+                return await Jobs.find({ user: email })
+
+            } else {
+
+                throw new Error(`You are not ${check.user}. Why are you trying to delete somebody else's job??`)
+
+            }
+
+        } catch (err) {
+
+            throw err
+
+        }
+
+    },
+
     jobs: async (args, req) => {
 
         const { email } = req.decoded

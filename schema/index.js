@@ -82,6 +82,7 @@ type RootMutation {
     createGoogleUser(googleData: GoogleData): AuthData!
     addJob(jobInput: JobInput): Job!
     updateJob(upJob: UpJob): Job!
+    delJob(_id: ID!): [Job!]
 }
 
 schema {
