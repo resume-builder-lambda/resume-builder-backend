@@ -23,6 +23,7 @@ type AuthData {
 }
 
 type Job {
+    _id: ID!
     company: String!
     position: String!
     location: String!
