@@ -43,6 +43,7 @@ query `jobs` | N/A | Returns a list of all jobs corresponding to logged in user 
 #### Required fields for `addJob` mutation:
 ```javascript
 {
+  _id: String,
   company: String,
   position: String,
   location: String,

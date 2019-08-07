@@ -31,8 +31,8 @@ module.exports = {
             }, process.env.JWT_SECRET, { expiresIn: '2h' })
 
             return {
-                _id: user.id,
                 token,
+                _id: user.id,
                 tokenExp: 2
             }
 
@@ -68,59 +68,6 @@ module.exports = {
                     name,
                     image,
                     token: args.googleData.token
-                }
-            })
-
-            await user.save()
-
-            console.log('user', user)
-
-            const token = jwt.sign({
-                _id: user.id,
-                email: user.email,
-                role: user.role
-            }, process.env.JWT_SECRET, { expiresIn: '2h' })
-
-            console.log(token)
-
-            return {
-                token,
-                _id: user.id,
-                tokenExp: 2
-            }
-
-        } catch (err) {
-
-            throw err
-
-        }
-
-    },
-
-    createGitHubUser: async args => {
-
-        let { email, password, name, image } = args.gitHubData
-
-        try {
-
-            const check = await User.findOne({ email })
-
-            if (check) {
-
-                throw new Error(`${email} already exists. Please try again or try logging in.`)
-
-            }
-
-            password = bcrypt.hashSync(password, 12)
-
-            const user = new User({
-                email,
-                password,
-                role: 'Student',
-                github: {
-                    name,
-                    image,
-                    token: args.gitHubData.token
                 }
             })
 

@@ -23,6 +23,7 @@ type AuthData {
 }
 
 type Job {
+    _id: ID!
     company: String!
     position: String!
     location: String!
@@ -60,6 +61,16 @@ input JobInput {
     offer: Boolean!
 }
 
+input UpJob {
+    _id: ID!
+    company: String!
+    position: String!
+    location: String!
+    applied: Boolean!
+    interview: Boolean!
+    offer: Boolean!
+}
+
 type RootQuery {
     login(email: String!, password: String!): AuthData!
     user: User!
@@ -70,6 +81,8 @@ type RootMutation {
     createUser(userInput: UserInput): AuthData!
     createGoogleUser(googleData: GoogleData): AuthData!
     addJob(jobInput: JobInput): Job!
+    updateJob(upJob: UpJob): Job!
+    delJob(_id: ID!): [Job!]
 }
 
 schema {
